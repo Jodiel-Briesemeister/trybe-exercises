@@ -1,0 +1,10 @@
+h1{
+    font-size: 65px;
+    color: orange;
+}
+#lista-cores{
+    background-color: palegoldenrod;
+}
+p, ul{
+    background-color: paleturquoise;
+}
