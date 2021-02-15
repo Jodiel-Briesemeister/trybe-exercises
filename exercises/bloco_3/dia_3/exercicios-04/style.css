@@ -1,0 +1,32 @@
+div:hover{
+    border: 2px solid black;
+}
+
+#primaria{
+    width: 200px;
+    background-color: red;
+}
+
+#secundaria{
+    width: 200px;
+    background-color: green;
+}
+
+#complementar{
+    width: 500px;
+    background-color: indigo;
+}
+
+#escura{
+    width: 200px;
+    background-color: rgb(63, 2, 36);
+}
+
+#clara{
+    width: 200px;
+    background-color: #03e0f0;
+}
+
+h3{
+    font-style: italic;
+}
