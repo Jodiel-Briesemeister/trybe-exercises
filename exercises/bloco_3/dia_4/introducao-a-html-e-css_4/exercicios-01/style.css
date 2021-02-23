@@ -1,0 +1,13 @@
+.side-bar {
+    float: right;
+    background-color: rgb(125, 180, 70);
+    margin-left: 8px;
+}
+
+.menu {
+  display: inline;
+}
+
+.img-boxeadora {
+  float: left;
+}
