@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <form id="cv-form">
+    <fieldset>
+      <div class="line-content">
+        <label for="name_id">Nome</label>
+        <input type="text" name="name" id="name_id" maxlength="40" required>
+      </div>
+      <div class="line-content">
+        <label for="email_id">Email</label>
+        <input type="text" name="email" id="email_id" maxlength="50" required>
+      </div>
+      <div class="line-content">
+        <label for="cpf_id">CPF</label>
+        <input type="text" name="cpf" id="cpf_id" maxlength="11" required>
+      </div>
+      <div class="line-content">
+        <label for="endereco_id">Endereço</label>
+        <input type="text" name="endereco" id="endereco_id" maxlength="200" required>
+      </div>
+      <div class="line-content">
+        <label for="cidade_id">Cidade</label>
+        <input type="text" name="cidade" id="cidade_id" maxlength="28" required>
+      </div>
+      <div class="line-content">
+        <label for="estados_id">Estado</label>
+        <select name="estados" id="estados_id" required>
+        </select>
+      </div>
+      <div class="line-content">
+        <input type="radio" name="residencia" id="casa" value="casa" required>
+        <label for="casa">Casa</label>
+        
+        <input type="radio" name="residencia" id="apartamento" value="apartmento" required>
+        <label for="apartamento">Apartmento</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="line-content">
+        <label for="curr_id">Resumo do currículo</label>
+        <textarea name="textCurr" id="curr_id" cols="30" rows="10" maxlength="1000"></textarea>
+      </div>
+      <div class="line-content">
+        <label for="cargo_id">Cargo</label>
+        <input type="text" name="cargo" id="cargo_id" maxlength="40" required>
+      </div>
+      <div class="line-content">
+        <label for="cargoDesc_id">Descrição do Cargo</label>
+        <input type="text" name="descriCargo" id="cargoDesc_id" maxlength="500" required>
+      </div>
+      <div class="line-content">
+        <label for="dataIni_id">Data de início</label>
+        <input type="text" name="dataIni" id="dataIni_id" required>
+      </div>
+    </fieldset>
+
+    <button class="submit-button" type="submit">Enviar</button>
+    <button class="clear-button" type="button">Limpar</button>
+  </form>
+
+  <section class="form-data"></section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
