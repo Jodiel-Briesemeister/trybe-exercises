@@ -159,7 +159,7 @@ function newTaskDiv(cor) {
   tasksContainer.appendChild(newTask);
 };
 
-newTaskDiv('green');
+newTaskDiv('red');
 
 //Exercício 9
 function setTaskClass() {

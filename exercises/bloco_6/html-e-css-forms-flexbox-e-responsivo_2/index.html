@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="node_modules/pikaday/css/pikaday.css">
+  <script src="node_modules/pikaday/pikaday.js"></script>
+  <script src="node_modules/just-validate/dist/js/just-validate.min.js"></script>
+  
+
+  <title>Document</title>
+</head>
+<body>
+  <form id="cv-form" method="GET" class="js-form">
+    <fieldset>
+      <label for="name_id">Nome</label>
+      <div class="input-group mb-3">
+        <input type="text" name="name" data-validate-field="name" id="name_id" maxlength="40" required>
+      </div>
+      <label for="email_id">Email</label>
+      <div class="input-group mb-3">
+        <input type="email" name="email" data-validate-field="email" id="email_id" maxlength="50" required>
+      </div>
+      <label for="cpf_id">CPF</label>
+      <div class="input-group mb-3">
+        <input type="text" name="cpf" data-validate-field="cpf" id="cpf_id" placeholder="000.000.000-00" minlength="11" maxlength="11" required>
+      </div>
+      <label for="endereco_id">Endereço</label>
+      <div class="input-group mb-3">
+        <input type="text" name="endereco" data-validate-field="endereco" id="endereco_id" maxlength="200" required>
+      </div>
+      <label for="cidade_id">Cidade</label>
+      <div class="input-group mb-3">
+        <input type="text" name="cidade" data-validate-field="cidade" id="cidade_id" maxlength="28" required>
+      </div>
+      <label for="estados_id">Estado</label>
+      <div class="input-group mb-3">
+        <select name="estados" id="estados_id" data-validate-field="estado" required>
+        </select>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="residencia" data-validate-field="radio" id="casa" value="casa" required>
+        <label for="casa">Casa</label>
+        
+        <input type="radio" name="residencia" data-validate-field="radio" id="apartamento" value="apartmento" required>
+        <label for="apartamento">Apartamento</label>
+      </div>
+    </fieldset>
+    <br>
+    <fieldset>
+      <label for="curr_id">Resumo do currículo</label>
+      <div class="input-group mb-3">
+        <textarea name="textCurr" data-validate-field="textCurr" id="curr_id" cols="30" rows="10" maxlength="1000"></textarea>
+      </div>
+      <label for="cargo_id">Cargo</label>
+      <div class="input-group mb-3">
+        <input type="text" name="cargo" data-validate-field="cargo" id="cargo_id" maxlength="40" required>
+      </div>
+      <label for="cargoDesc_id">Descrição do Cargo</label>
+      <div class="input-group mb-3">
+        <input type="text" name="descriCargo" data-validate-field="descriCargo" id="cargoDesc_id" maxlength="500" required>
+      </div>
+      <label for="dataIni_id">Data de início</label>
+      <div class="input-group mb-3">
+        <input type="text" name="dataIni" autocomplete="off" maxlength="0" data-validate-field="dataIni" id="dataIni_id" placeholder="DD/MM/AAAA" required>
+      </div>
+    </fieldset>
+
+    <section class="form-data"></section>
+    
+    <button class="submit-button btn btn-success" type="submit">Enviar</button>
+    <button class="clear-button btn btn-danger" type="reset">Limpar</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
