@@ -36,7 +36,7 @@ function checkData() {
 function checkEmail() {
   const email = document.querySelector('#email_id');
   let insertedEmail = email.value;
-  const emailFormat = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/.test(insertedEmail); // Linha 50
+  const emailFormat = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/.test(insertedEmail); // Linha 58
   if (!emailFormat) {
     email.value = '';
     alert('email inválido');
