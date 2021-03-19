@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(205, 235, 235);
+}
+h1 {
+  font-size:45px;
+}
+h2 {
+  font-size:30px;
+}
+
+p {
+  font-size:25px;
+}
+
+img {
+  /* max-width: 100%; */
+}
+
+figure {
+  padding-top: 9px;
+}
+
+.catimg {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: center;
+}

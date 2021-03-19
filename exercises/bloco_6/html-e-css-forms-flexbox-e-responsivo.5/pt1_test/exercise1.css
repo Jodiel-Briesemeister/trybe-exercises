@@ -1,0 +1,25 @@
+body {
+
+}
+h1 {
+  font-size:45px;
+}
+h2 {
+  font-size:40px;
+}
+
+p {
+  font-size:30px;
+}
+
+img {
+    max-width: 100%;
+}
+
+figcaption {
+  font-size:30px;
+}
+
+figure {
+    margin: 0;
+}
