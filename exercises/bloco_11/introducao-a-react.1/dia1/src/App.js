@@ -12,7 +12,7 @@ function App() {
   return (
     <ul>
       {tarefas.map((tarefa) => <li>{tarefa}</li>)}
-      <li>{task('Almoçar')}</li>
+      {task('Almoçar')}
     </ul>
   )
 }
