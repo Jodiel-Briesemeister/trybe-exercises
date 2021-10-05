@@ -1,0 +1,504 @@
+// use ("agg_example");
+
+// db.clients.insertMany([
+//   { name: "Dave America", State: "Florida" },
+//   { name: "Ned Flanders", State: "Alasca" },
+//   { name: "Mark Zuck", State: "Texas" },
+//   { name: "Edna Krabappel", State: "Montana" },
+//   { name: "Arnold Schuz", State: "California" },
+//   { name: "Lisa Simpson", State: "Florida" },
+//   { name: "Barney Gumble", State: "Texas" },
+//   { name: "Homer Simpson", State: "Florida" },
+// ]);
+
+// 1-Selecione todos os clientes com as suas
+// respectivas transações feitas;
+// db.clients.aggregate([
+//   {
+//     $lookup: {
+//       let: { client_name: "$name" },
+//       from: "transactions",
+//       pipeline: [
+//         {
+//           $match: { 
+//             $expr: { $eq: [ "$from", "$$client_name" ] }
+//            }
+//         }
+//       ],
+//       as: "transactions"
+//     }
+//   },
+//   {
+//     $project: {
+//       _id: 0,
+//       "transactions._id": 0,
+//       "transactions.from": 0,
+//     }
+//   }
+// ]);
+
+// 2-Selecione os quatro primeiros clientes com
+// as suas respectivas transações recebidas ordenados pelo estado 
+// em ordem alfabética;
+// db.clients.aggregate([
+//   {
+//     $lookup: {
+//       let: { client_name: "$name" },
+//       from: "transactions",
+//       pipeline: [
+//         {
+//           $match: { 
+//             $expr: { $eq: [ "$to", "$$client_name" ] }
+//            }
+//         }
+//       ],
+//       as: "transactions"
+//     }
+//   },
+//   {
+//     $project: {
+//       _id: 0,
+//       "transactions._id": 0,
+//       "transactions.to": 0,
+//     }
+//   },
+//   { $sort: { State: 1 } },
+//   { $limit: 4 },
+// ]);
+
+// 3-Selecione todos os cliente do estado da "Florida" e suas 
+// respectivas transações recebidas.
+
+// db.clients.aggregate([
+//   {
+//     $lookup: {
+//       let: { client_name: "$name" },
+//       from: "transactions",
+//       pipeline: [
+//         {
+//           $match: { 
+//             $expr: { $eq: [ "$to", "$$client_name" ] }
+//            }
+//         }
+//       ],
+//       as: "transactions"
+//     }
+//   },
+//   {
+//     $match: { State: "Florida" }
+//   },
+//   {
+//     $project: {
+//       _id: 0,
+//       "transactions._id": 0,
+//       "transactions.to": 0,
+//     }
+//   },
+// ]);
+
+// use ("storage");
+
+// db.products.insertMany([
+//   { "name": "Ball", "purchase_price": 7.6, "taxes": 1.9, "sale_price": 12.5, "quantity": 5 },
+//   { "name": "Baseball bat", "purchase_price": 18.5, "taxes": 5.3, "sale_price": 39.9, "quantity": 12 },
+//   { "name": "Sneakers", "purchase_price": 10.4, "taxes": 1.50, "sale_price": 14.9, "quantity": 3 },
+//   { "name": "Gloves", "purchase_price": 2.85, "taxes": 0.90, "sale_price": 5.70, "quantity": 34 },
+//   { "name": "Jacket", "purchase_price": 28.9, "taxes": 10.80, "sale_price": 59.9, "quantity": 20 },
+//   { "name": "Mousepad", "purchase_price": 16.6, "taxes": 3.40, "sale_price": 29.9, "quantity": 8 },
+//   { "name": "Monitor", "purchase_price": 119.9, "taxes": 39.20, "sale_price": 240.6, "quantity": 11 },
+// ]);
+
+// 1-Calcule qual o custo total de cada produto,
+// considerando o preço de compra e os impostos.
+
+// db.products.aggregate([
+//   {
+//     $project: {
+//       _id: 0,
+//       name: 1,
+//       custo_total: { 
+//         $add: [ "$purchase_price", "$taxes" ]
+//       }
+//     }
+//   }
+// ]);
+
+// 1-Calcule qual o lucro total de cada produto, 
+// considerando o preço de compra, os impostos e seu valor de venda.
+
+// db.products.aggregate([
+//   {
+//     $project: {
+//       _id: 0,
+//       name: 1,
+//       lucro_total: {
+//         $subtract: [
+//           "$sale_price",
+//           { $add: [ "$purchase_price", "$taxes" ] }
+//         ]
+//       }
+//     }
+//   }
+// ]);
+
+// 1-Retorne o menor número inteiro relativo ao 
+// preço de venda de cada produto;
+// db.products.aggregate([
+//   {
+//     $project: {
+//       _id: 0,
+//       name: 1,
+//       sale_price: 1,
+//       floor_sale_price: { $floor: "$sale_price" },
+//     }
+//   }
+// ]);
+
+// 2-Retorne o maior número inteiro relativo ao 
+// lucro total sobre cada produto.
+
+// db.products.aggregate([
+//   {
+//     $project: {
+//       _id: 0,
+//       name: 1,
+//       total_profit: {
+//         $subtract: [
+//           "$sale_price",
+//           { $add: [ "$purchase_price", "$taxes" ] }
+//         ]
+//       },
+//       ceil_total_profit: {
+//         $ceil: {
+//           $subtract: [
+//             "$sale_price",
+//             { $add: [ "$purchase_price", "$taxes" ] }
+//           ]
+//         }
+//       }
+//     }
+//   }
+// ]);
+
+// 1-Calcule o valor absoluto do lucro total de cada produto.
+
+// db.products.aggregate([
+//   {
+//     $project: {
+//       _id: 0,
+//       name: 1,
+//       lucro_total: {
+//         $abs: {
+//           $subtract: [
+//             "$sale_price",
+//             { $add: [ "$purchase_price", "$taxes" ] }
+//           ]
+//         }
+//       }
+//     }
+//   }
+// ]);
+
+// 1-Calcule qual o valor total em estoque de cada produto,
+// considerando o preço de venda e a quantidade;
+// db.products.aggregate([
+//   {
+//     $project: {
+//       total_value: {
+//         $multiply: [ "$sale_price", "$quantity" ]
+//       }
+//     }
+//   }
+// ]);
+
+// 2-Calcule qual será o lucro total de cada produto
+// caso todo o estoque seja vendido.
+// db.products.aggregate([
+//   {
+//     $project: {
+//       _id: 0,
+//       sale_price: 1,
+//       purchase_price: 1,
+//       taxes: 1,
+//       quantity: 1,
+//       total_profit: {
+//         $multiply: [
+//           { 
+//             $subtract: [
+//               "$sale_price",
+//               { $add: ["$purchase_price", "$taxes"] }
+//             ]
+//           },
+//           "$quantity"
+//         ]
+//       }
+//     }
+//   },
+// ]);
+
+// 1-Calcule qual será o preço de venda de cada produto 
+// caso haja uma promoção de 50% de desconto.
+
+// db.products.aggregate([
+//   { 
+//     $project: {
+//       _id: 0,
+//       name: 1,
+//       sale_price: 1,
+//       price_with_discount: {
+//         $divide: ["$sale_price", 2]
+//       }
+//     }
+//   }
+// ]);
+
+// 1-Calcule o valor total do estoque, considerando que cada
+// produto valha o mesmo que seu preço de venda. 
+// Lembre-se da quantidade.
+
+// db.products.aggregate([
+//   {
+//     $addFields: {
+//       stock_total_value: { $multiply: ["$sale_price", "$quantity"] }
+//     }
+//   }
+// ]);
+
+
+
+use ("erp");
+
+// Exercício 1: Utilize uma combinação das expressões 
+// aritméticas e adicione um campo chamado idade à coleção 
+// clientes. Algumas dicas:
+
+// *arredonde para baixo o valor da idade;
+// *calcule a idade usando a diferença entre a data corrente 
+// e a data de nascimento;
+// *1 dia é igual a 86400000 milissegundos.
+
+db.clientes.aggregate([
+  {
+    $addFields: {
+      idade: {
+        $floor: {
+          $divide: [
+            { $subtract: [new Date(), "$dataNascimento"] },
+            { $multiply: [86400000, 365] }
+          ]
+        }
+      }
+    }
+  },
+]);
+
+// Exercício 2: Utilizando o novo campo idade, conte 
+// quantos clientes têm entre 18 e 25 anos.
+
+// db.clientes.aggregate([
+//   {
+//     $addFields: {
+//       idade: {
+//         $floor: {
+//           $divide: [
+//             { $subtract: [new Date(), "$dataNascimento"] },
+//             { $multiply: [86400000, 365] }
+//           ]
+//         }
+//       }
+//     }
+//   },
+//   {
+//     $match: { idade: { $gte: 18, $lte: 25 } }
+//   },
+//   {
+//     $count: 'clientes_qtd'
+//   }
+// ]);
+
+
+// Exercício 3: Remova os estágios $count e $match do 
+// exercício anterior e adicione um estágio no pipeline 
+// que coloque as compras do cliente no campo compras.
+
+db.clientes.aggregate([
+  {
+    $addFields: {
+      idade: {
+        $floor: {
+          $divide: [
+            { $subtract: [new Date(), "$dataNascimento"] },
+            { $multiply: [86400000, 365] }
+          ]
+        }
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: "vendas",
+      localField: "clienteId",
+      foreignField: "clienteId",
+      as: "compras",
+    }
+  },
+]);
+
+// Exercício 4: Selecione TODOS os clientes que compraram 
+// entre Junho de 2019 e Março de 2020.
+
+db.clientes.aggregate([
+  {
+    $lookup: {
+      from: 'vendas',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  {
+    $match: {
+      "compras.dataVenda": {
+        $gte: ISODate('2019-01-01'),
+        $lte: ISODate('2020-03-31'),
+      }
+    }
+  }
+]);
+
+// Exercício 5: Confira o número de documentos retornados
+// pelo pipeline com o método itcount() . Até aqui, você
+// deve ter 486 documentos sendo retornados.
+
+db.clientes.aggregate([
+  {
+    $lookup: {
+      from: 'vendas',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  {
+    $match: {
+      "compras.dataVenda": {
+        $gte: ISODate('2019-01-01'),
+        $lte: ISODate('2020-03-31'),
+      }
+    }
+  }
+]).itcount();
+
+// Exercício 6: Ainda nesse pipeline, descubra os 5
+// estados com mais compras.
+
+
+db.clientes.aggregate([
+  {
+    $lookup: {
+      from: 'vendas',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  {
+    $match: {
+      "compras.dataVenda": {
+        $gte: ISODate('2019-01-01'),
+        $lte: ISODate('2020-03-31'),
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$endereco.uf",
+      compras: {
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: { compras: -1 }
+  },
+  { $limit: 5 }
+]);
+
+// Exercício 7: Descubra o cliente que mais consumiu QUEIJO PRATO.
+// Retorne um documento com a seguinte estrutura:
+
+// {
+//   "nomeCliente": "NOME",
+//   "uf": "UF DO CLIENTE",
+//   "totalConsumido": 100
+// }
+
+db.vendas.aggregate([
+  { $unwind: "$itens" },
+  {
+    $match: { "itens.nome": "QUEIJO PRATO"  }
+  },
+  {
+    $group: {
+      _id: "$clienteId",
+      totalConsumido: { $sum: "$itens.quantidade" }
+    }
+  },
+  {
+    $sort: { "totalConsumido": -1 }
+  },
+  { $limit: 1 },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: '_id',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  { $unwind: "$compras" },
+  {
+    $project: {
+      _id: 0,
+      nomeCliente: "$compras.nome",
+      uf: "$compras.endereco.uf",
+      totalConsumido: 1,
+    }
+  }
+]);
+
+
+// Exercício 8: Selecione todas as vendas do mês de Março de 2020,
+// com status EM SEPARACAO. Acrescente um campo chamado 
+// dataEntregaPrevista com valor igual a três dias após a 
+// data da venda. Retorne apenas os campos clienteId,
+// dataVenda e dataEntregaPrevista.
+
+db.vendas.aggregate([
+  {
+    $match: {
+      $and: [
+        {
+          dataVenda: {
+            $gte: ISODate('2020-03-01'),
+            $lte: ISODate('2020-03-31')
+          }
+        },
+        { status: "EM SEPARACAO" }
+      ]
+    }
+  },
+  {
+    $addFields: {
+      dataEntregaPrevista: { $add: ["$dataVenda", 3 * 24 * 60 * 60000] }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      clienteId: 1,
+      dataVenda: 1,
+      dataEntregaPrevista: 1
+    }
+  }
+]);
